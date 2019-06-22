@@ -7,15 +7,16 @@
 </head>
 
 <body>
-<h1>We are loading giphs soon!</h1>
+<h1>We are loading Giphys soon!</h1>
 <div id="container">
 
 </div>
 <br>
 <div id="display"></div>
+
 	
 <script>
-	
+	/////////DONE/////// adding buttons to the html ////////////DONE///////////
 	let topics = ["keyboard", "piano", "trumpet", "flute", "drums", "guitar"];
 	
 	// creating buttons with the array with for loop
@@ -28,13 +29,13 @@
 	$("#container").append(btn);
 		
 	} // end of for loop
+	////////DONE/////////////////////////////////////////////////DONE//////////
 	
-	////////////////////////////////////////////////////////////////////////////
-	
-	// added click event to the button class
+	// added click event to the button class //////////////////////////////////
 	
 	$(".bn").on('click', function(e){
-		
+
+	// AJAX CALL //////////////////////////////////////////////////////////////	
 	let queryURL = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq";
 		
 	$.ajax({
@@ -44,18 +45,16 @@
 		
 		//let button = e.currentTarget;
 		
-		
 		// for loop to call 10 [still] images
 		for (let j = 0; j < 10; j++) {
 		
             let pic = $("<img>");
 		
-            pic.attr("src", response.data[j].images.downsized.url);
+            pic.attr("src", response.data[j].images["480w_still"].url);
 			let rating = response.data[j].rating;
 		
 			// add rating below image
-			$("#display").append(pic);
-			$("#display").append(rating);
+			$("#display").append(pic).append(rating);
 			
 			//console.log(response.data[0].images["480w_still"]url);
 			
