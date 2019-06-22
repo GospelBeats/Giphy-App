@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+
+<body>
+<h1>We are loading giphs soon!</h1>
+<div id="container">
+
+</div>
+<br>
+<div id="display"></div>
+	
+<script>
+	
+	let topics = ["keyboard", "piano", "trumpet", "flute", "drums", "guitar"];
+	
+	// creating buttons with the array with for loop
+	for(let i = 0; i < topics.length; i++){	
+		
+	// adding a class name to the buttons	
+	let btn = $("<button>").attr("class", "bn").append(topics[i]);	
+		
+	// adding buttons to the html
+	$("#container").append(btn);
+		
+	} // end of for loop
+	
+	////////////////////////////////////////////////////////////////////////////
+	
+	// added click event to the button class
+	
+	$(".bn").on('click', function(e){
+		
+	let queryURL = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq";
+		
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).then(function(response){
+		
+		//let button = e.currentTarget;
+		
+		
+		// for loop to call 10 [still] images
+		for (let j = 0; j < 10; j++) {
+		
+            let pic = $("<img>");
+		
+            pic.attr("src", response.data[j].images.downsized.url);
+			let rating = response.data[j].rating;
+		
+			// add rating below image
+			$("#display").append(pic);
+			$("#display").append(rating);
+			
+			//console.log(response.data[0].images["480w_still"]url);
+			
+			// toggle function for clicking on image to pause and play gif ??????
+			pic.on('click', function (){
+				
+			});
+			
+			} // end of for loop
+		
+		}); // end of ajax function
+			
+	}); // end of event function
+
+//	
+//4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
+//
+//5. Under every gif, display its rating (PG, G, so on).
+//   * This data is provided by the GIPHY API.
+//   * Only once you get images displaying with button presses should you move on to the next step.
+//
+//6. Add a form to your page that takes a value from a user input box and adds it to your `topics` array. Then make a function call that takes each topic in the array and remakes the buttons on the page.
+//SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq	
+	
+	
+</script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>	
+</body>
+</html>
