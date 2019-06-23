@@ -9,26 +9,39 @@
 <body>
 <h1>We are loading Giphys soon!</h1>
 <div id="container">
-
+	
 </div>
+<br>
+	<form>
+	<input type="text" id="userTopic">
+	<br><br>
+	<button id="but">button</button>
+	</form>
 <br>
 <div id="display"></div>
 
-	
 <script>
 	/////////DONE/////// adding buttons to the html ////////////DONE///////////
 	let topics = ["keyboard", "piano", "trumpet", "flute", "drums", "guitar"];
+	let userTopic = "";
 	
+
+	createButton(topics);
+
+	function createButton(arr){
+
 	// creating buttons with the array with for loop
-	for(let i = 0; i < topics.length; i++){	
-		
+	for(let i = 0; i < arr.length; i++){	
+
 	// adding a class name to the buttons	
-	let btn = $("<button>").attr("class", "bn").append(topics[i]);	
-		
+	let btn = $("<button>").attr("class", "bn").append(arr[i]);		
+
 	// adding buttons to the html
-	$("#container").append(btn);
-		
-	} // end of for loop
+	$("#container").append(btn);		
+
+		} // end of for loop
+	} // end of create button
+
 	////////DONE/////////////////////////////////////////////////DONE//////////
 	
 	// added click event to the button class //////////////////////////////////
@@ -59,17 +72,21 @@
 			//console.log(response.data[0].images["480w_still"]url);
 			
 			// toggle function for clicking on image to pause and play gif ??????
-			pic.on('click', function (){
+			//pic.on('click', function (){
 				
-			});
+			//});
 			
 			} // end of for loop
 		
 		}); // end of ajax function
+
+		// toggle start and pause on images function
+		$("<img>").on('click', function(){
+		this.response.data.images["480w_still"].url;
+		});
 			
 	}); // end of event function
-
-//	
+	
 //4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 //
 //5. Under every gif, display its rating (PG, G, so on).
@@ -78,8 +95,17 @@
 //
 //6. Add a form to your page that takes a value from a user input box and adds it to your `topics` array. Then make a function call that takes each topic in the array and remakes the buttons on the page.
 //SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq	
-	
-	
+
+
+
+// create buttons function	
+$("#but").on('click', function(e){
+	e.preventDefault();
+	let userTopic = $("#userTopic").val().trim().split(" ");
+    createButton(userTopic);
+	// cannot reset text in input box
+});
+
 </script>
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
