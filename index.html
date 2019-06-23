@@ -21,10 +21,12 @@
 <div id="display"></div>
 
 <script>
-	/////////DONE/////// adding buttons to the html ////////////DONE///////////
+	/////////DONE////////////// GLOBAL VARIABLES ///////////////DONE///////////
 	let topics = ["keyboard", "piano", "trumpet", "flute", "drums", "guitar"];
 	let userTopic = "";
+	let pic = "";
 	
+	////////DONE/////////////  CREATE BUTTON FUNCTION  //////////DONE//////////
 
 	createButton(topics);
 
@@ -42,7 +44,7 @@
 		} // end of for loop
 	} // end of create button
 
-	////////DONE/////////////////////////////////////////////////DONE//////////
+	////////DONE/////////////  CREATE BUTTON FUNCTION END ///////DONE//////////
 	
 	// added click event to the button class //////////////////////////////////
 	
@@ -61,32 +63,31 @@
 		// for loop to call 10 [still] images
 		for (let j = 0; j < 10; j++) {
 		
-            let pic = $("<img>");
+            pic = $("<img>");
 		
             pic.attr("src", response.data[j].images["480w_still"].url);
 			let rating = response.data[j].rating;
 		
 			// add rating below image
-			$("#display").append(pic).append(rating);
-			
-			//console.log(response.data[0].images["480w_still"]url);
-			
-			// toggle function for clicking on image to pause and play gif ??????
-			//pic.on('click', function (){
-				
-			//});
+			$("#display").append(pic)
+			$("#display").append("<p>" + rating + "</p>");
 			
 			} // end of for loop
 		
 		}); // end of ajax function
 
 		// toggle start and pause on images function
-		$("<img>").on('click', function(){
-		this.response.data.images["480w_still"].url;
-		});
-			
+		
 	}); // end of event function
 	
+// create buttons function	
+$("#but").on('click', function(e){
+	e.preventDefault();
+	let userTopic = $("#userTopic").val().trim().split(" ");
+    createButton(userTopic);
+	$("#userTopic").val("");
+});
+
 //4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 //
 //5. Under every gif, display its rating (PG, G, so on).
@@ -94,17 +95,7 @@
 //   * Only once you get images displaying with button presses should you move on to the next step.
 //
 //6. Add a form to your page that takes a value from a user input box and adds it to your `topics` array. Then make a function call that takes each topic in the array and remakes the buttons on the page.
-//SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq	
-
-
-
-// create buttons function	
-$("#but").on('click', function(e){
-	e.preventDefault();
-	let userTopic = $("#userTopic").val().trim().split(" ");
-    createButton(userTopic);
-	// cannot reset text in input box
-});
+//SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq
 
 </script>
 <script
