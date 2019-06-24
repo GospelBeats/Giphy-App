@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<h1>We are loading Giphys soon!</h1>
+<h1>We are loading Music Instrument Giphys!</h1>
 <div id="container">
 	
 </div>
@@ -25,6 +25,7 @@
 	let topics = ["keyboard", "piano", "trumpet", "flute", "drums", "guitar"];
 	let userTopic = "";
 	let pic = "";
+	let btn = "";
 	
 	////////DONE/////////////  CREATE BUTTON FUNCTION  //////////DONE//////////
 
@@ -36,22 +37,28 @@
 	for(let i = 0; i < arr.length; i++){	
 
 	// adding a class name to the buttons	
-	let btn = $("<button>").attr("class", "bn").append(arr[i]);		
-
+	let btn = $("<button>").attr("data-name", arr[i]).append(arr[i]);		
+	//console.log();
 	// adding buttons to the html
 	$("#container").append(btn);		
 
 		} // end of for loop
+		
 	} // end of create button
 
 	////////DONE/////////////  CREATE BUTTON FUNCTION END ///////DONE//////////
 	
 	// added click event to the button class //////////////////////////////////
 	
-	$(".bn").on('click', function(e){
-
+	
+	$("#container").on('click', function(e){
+		
+	let button = e.target.getAttribute('data-name');
+	
+	$("#display").empty();
+	
 	// AJAX CALL //////////////////////////////////////////////////////////////	
-	let queryURL = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq";
+	let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + button + "&api_key=SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq";
 		
 	$.ajax({
 		url: queryURL,
@@ -59,14 +66,14 @@
 	}).then(function(response){
 		
 		//let button = e.currentTarget;
-		
+		let results = response.data;
 		// for loop to call 10 [still] images
 		for (let j = 0; j < 10; j++) {
 		
             pic = $("<img>");
 		
-            pic.attr("src", response.data[j].images["480w_still"].url);
-			let rating = response.data[j].rating;
+            pic.attr("src", results[j].images["480w_still"].url);
+			let rating = results[j].rating;
 		
 			// add rating below image
 			$("#display").append(pic)
@@ -74,11 +81,19 @@
 			
 			} // end of for loop
 		
-		}); // end of ajax function
-
 		// toggle start and pause on images function
 		
+		}); // end of ajax function
+
 	}); // end of event function
+	
+	
+	/////// stand alone function ////////////////
+	
+	let ig = $("img");
+	console.log(ig);
+	////// stand alone function /////////////////
+	
 	
 // create buttons function	
 $("#but").on('click', function(e){
