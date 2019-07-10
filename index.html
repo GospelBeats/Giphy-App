@@ -17,7 +17,7 @@
 	
 <br>
 			<form>
-			<input type="text" id="userTopic">
+			<input type="text" id="userTopic"><p id="error"></p>
 			<br><br>
 			<button id="but" class="btn btn-danger">Add Topic</button>
 			</form>
@@ -117,9 +117,20 @@
 // create buttons function / user
 $("#but").on('click', function(e){
 	e.preventDefault();
+
+	let userTopic = $("#userTopic").val();
+
+	// check if user is typing in a word validation
+	if(userTopic === ""){
+		$("#error").text("Please Enter A Word"); 
+		setTimeout(function(){ 
+					$("#error").text(""); 
+					}, 1500);			
+	} else {
 	let userTopic = $("#userTopic").val().trim().split(" ");
     createButton(userTopic);
 	$("#userTopic").val("");
+	}
 });
 
 //SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq
