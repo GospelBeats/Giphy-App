@@ -122,7 +122,7 @@ $("#but").on('click', function(e){
 
 	// check if user is typing in a word validation
 	if(userTopic === ""){
-		$("#error").text("Please Enter A Word"); 
+		$("#error").text("** Please Enter A Word **").css("color", "red"); 
 		setTimeout(function(){ 
 					$("#error").text(""); 
 					}, 1500);			
