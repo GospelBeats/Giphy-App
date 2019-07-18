@@ -1,9 +1,8 @@
 # Giphy-App
+
 using ajax and api to retrieve images
 
 Deployed Version: https://gospelbeats.github.io/Giphy-App/
 
-This app allows you to display 10 gifs at a time
-You can click a topic that's already available
-Or you can type in your own topic in the search box
-Make sure you actually type a word in the search box or you will get an error message
+This App utilizes the gif API to generate 10 random gifs based on the giving topics in the user interface. The user also has the option to create their own custom topics, then search gifs.
+Once the gifs are display on the screen, the user can click and toggle on and off, the gif to see the animation.
