@@ -6,29 +6,38 @@
 <link href="https://fonts.googleapis.com/css?family=B612|B612+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	
 </head>
 
-<body>
+<body style="background-color: aliceblue">
+	
 <div class="container mt-5">
+	
 	<div class="row">
+		
 		<h1 class="mb-5 text-primary font-weight-bolder" style="font-family: 'B612 Mono', monospace">Click to View Musical Giphys!</h1>
 		<div id="container"></div>
-	</div>
-	
-<br>
-			<form>
-			<input type="text" id="userTopic"><p id="error"></p>
-			<br><br>
-			<button id="but" class="btn btn-danger">Add Topic</button>
-			</form>
-<br>		
-	<div class="row">
-		<div id="display" class="col-6"></div>
-		<div class="col-6 lead directions" style="display: none">Click On Image To View Animation</div>
 		
 	</div>
+	<br>
+	<div class="row">
+			<form>
+			<input type="text" id="userTopic"><p id="error"></p>
+			<button id="but" class="btn btn-danger">Add Topic</button>
+			</form>
+	</div>
+	<br>
 	
-</div>
+<div class="lead directions" style="display: none">Click On Image To View Animation</div>
+<hr>
+<div class="row bg-white">
+	<div class="col-4" id="display1"></div>
+	<div class="col-4" id="display2"></div>
+	<div class="col-4" id="display3"></div>
+</div>	
+
+</div> <!-- main container -->
+	
 <script>
 	/////////DONE////////////// GLOBAL VARIABLES ///////////////DONE///////////
 	let topics = ["violin", "piano", "trumpet", "flute", "drums", "guitar"];
@@ -37,25 +46,20 @@
 	let btn = "";
 	
 	////////DONE/////////////  CREATE BUTTON FUNCTION  //////////DONE//////////
-
 	createButton(topics);
-
 	function createButton(arr){
-
 	// creating buttons with the array with for loop
 	for(let i = 0; i < arr.length; i++){	
-
 	// adding a class name to the buttons	
 	let btn = $("<button>").attr("data-name", arr[i]).append(arr[i]);	
 	btn.addClass("btn btn-info mr-1");
 	
 	// adding buttons to the html
 	$("#container").append(btn);		
-
 		} // end of for loop
 		
 	} // end of create button
-
+	
 	////////DONE/////////////  CREATE BUTTON FUNCTION END ///////DONE//////////
 	
 	// added click event to the button class //////////////////////////////////
@@ -66,7 +70,9 @@
 	// display instrutions to see image animation
 	$(".directions").show();
 	// allow to only show 10 gifs at a time
-	$("#display").empty();
+	$("#display1").empty();
+	$("#display2").empty();
+	$("#display3").empty();
 	
 	// AJAX CALL //////////////////////////////////////////////////////////////	
 	let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + button + "&api_key=SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq";
@@ -77,7 +83,6 @@
 	}).then(function(response){
 		
 		let results = response.data;
-
 		// for loop to call 10 [still] images
 		for (let j = 0; j < 10; j++) {
 		
@@ -91,9 +96,19 @@
             pic.attr("data-animate", results[j].images.fixed_height.url);
             pic.attr("data-state", "still");
 		
-			// add rating below image
-			$("#display").append(pic)
-			$("#display").append("<p>" + "Rating: " + rating + "</p>");
+			// add rating below image and put gifs in 3 columns
+			
+			 if (j >= 0 && j < 3) {
+              $("#display1").append(pic).append("<p>" + "Rating: " + rating + "</p>");
+            }
+            
+            else if (j>= 3 && j < 7) {
+              $("#display2").append(pic).append("<p>" + "Rating: " + rating + "</p>");
+            }
+
+            else {
+              $("#display3").append(pic).append("<p>" + "Rating: " + rating + "</p>");
+            }			
 			
 			} // end of for loop
 		
@@ -111,15 +126,12 @@
 		});
 		
 		}); // end of ajax function
-
 	}); // end of event function
 	
 // create buttons function / user
 $("#but").on('click', function(e){
 	e.preventDefault();
-
 	let userTopic = $("#userTopic").val();
-
 	// check if user is typing in a word validation
 	if(userTopic === ""){
 		$("#error").text("** Please Enter A Word **").css("color", "red"); 
@@ -127,14 +139,12 @@ $("#but").on('click', function(e){
 					$("#error").text(""); 
 					}, 1500);			
 	} else {
-	let userTopic = $("#userTopic").val().trim().split(" ");
+	let userTopic = $("#userTopic").val().trim().split();
     createButton(userTopic);
 	$("#userTopic").val("");
 	}
 });
-
 //SVXiEXxf6IH7cE2gz7Fo6wBtlSvsSJzq
-
 </script>
 <!-- <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
